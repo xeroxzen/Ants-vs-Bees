@@ -1,0 +1,10 @@
+git init
+git add
+git status
+git commit -m "Commit message"
+git branch
+git remote add origin https://github.com/Andile-Mbele/mynewrepository.git
+git push -u origin master
+git push origin my-new-branch
+git pull origin master
+git log
