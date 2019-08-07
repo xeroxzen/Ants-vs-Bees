@@ -72,7 +72,6 @@ class Insect:
         """Create an Insect with an armor amount and a starting Place."""
         self.armor = armor
         self.place = place  # set by Place.add_insect and Place.remove_insect
-        #self.watersafe = False
 
 
 
@@ -464,8 +463,8 @@ class FireAnt(Ant):
     implemented = False
 
     def reduce_armor(self, amount):
-        if self.armor <= 0:
-            self.insect.reduce_armor -= 1
+        if FireAnt.armor <= 0:
+            insect.reduce_armor(bees , damage)
 
 
 class LongThrower(ThrowerAnt):
