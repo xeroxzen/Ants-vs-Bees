@@ -448,10 +448,10 @@ class Water(Place):
 
     def add_insect(self, insect):
         """Add insect if it is watersafe, otherwise reduce its armor to 0."""
-        insect = Place.add_insect
+        Place.add_insect(self, insect)
         print('added', insect, insect.watersafe)
-        if insect != insect.watersafe:
-            insect.reduce_armor(0)
+        if not insect.watersafe:
+            insect.reduce_armor(insect.armor)    
 
 
 class FireAnt(Ant):
