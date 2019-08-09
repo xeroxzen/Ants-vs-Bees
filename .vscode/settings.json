@@ -1,3 +1,4 @@
 {
-    "editor.fontFamily": "Consolas, 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'"
+    "editor.fontFamily": "Consolas, 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "python.pythonPath": "/usr/bin/python3"
 }

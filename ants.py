@@ -143,9 +143,11 @@ class Bee(Insect):
 class Ant(Insect):
     """An Ant occupies a place and does work for the colony."""
 
+    blocks_path = True
     implemented = False  # Only implemented Ant classes should be instantiated
     damage = 0
     food_cost = 0
+    
 
     def __init__(self, armor=1):
         """Create an Ant with an armor quantity."""
@@ -181,6 +183,8 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     food_cost = 4
+    min_range = 0
+    max_range = 10
 
     def nearest_bee(self, hive):
         """Return the nearest Bee in a Place that is not the Hive, connected to
@@ -190,8 +194,16 @@ class ThrowerAnt(Ant):
 
         Problem B5: This method returns None if there is no Bee in range.
         """
-        "*** YOUR CODE HERE ***"
-        return random_or_none(self.place.bees)
+        position = self.place
+        index = 0
+        while position != hive:
+            if len(position.bees) != 0 and self.min_range <= index <= self.max_range:
+                return random_or_none(position.bees)
+            index += 1
+            position = position.entrance
+        
+        return None
+        # return random_or_none(self.place.bees)
 
     def throw_at(self, target):
         """Throw a leaf at the target Bee, reducing its armor."""
@@ -472,33 +484,34 @@ class FireAnt(Ant):
                 bee.reduce_armor(self.damage)
         Insect.reduce_armor(self, amount)        
             
-            
+
 class LongThrower(ThrowerAnt):
     """A ThrowerAnt that only throws leaves at Bees at least 4 places away."""
 
     name = 'Long'
-    "*** YOUR CODE HERE ***"
-    implemented = False
+    food_cost = 3
+    min_range = 4
+    implemented = True
 
 
 class ShortThrower(ThrowerAnt):
     """A ThrowerAnt that only throws leaves at Bees within 3 places."""
 
     name = 'Short'
-    "*** YOUR CODE HERE ***"
-    implemented = False
+    food_cost = 3
+    max_range = 3
+    implemented = True
 
 
 class WallAnt(Ant):
     """WallAnt is an Ant which has a large amount of armor."""
 
     name = 'Wall'
-    "*** YOUR CODE HERE ***"
-    implemented = False
+    food_cost = 4
+    implemented = True
 
     def __init__(self):
-        "*** YOUR CODE HERE ***"
-        Ant.__init__(self)
+        Ant.__init__(self, armor = 4)
 
 
 class NinjaAnt(Ant):
@@ -506,7 +519,7 @@ class NinjaAnt(Ant):
     all Bees in the exact same Place."""
 
     name = 'Ninja'
-    "*** YOUR CODE HERE ***"
+    block_path = False
     implemented = False
 
     def action(self, colony):
@@ -517,8 +530,9 @@ class ScubaThrower(ThrowerAnt):
     """ScubaThrower is a ThrowerAnt which is watersafe."""
 
     name = 'Scuba'
-    "*** YOUR CODE HERE ***"
-    implemented = False
+    food_cost = 5
+    watersafe = True
+    implemented = True
 
 
 class HungryAnt(Ant):
