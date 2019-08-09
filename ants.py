@@ -201,7 +201,6 @@ class ThrowerAnt(Ant):
                 return random_or_none(position.bees)
             index += 1
             position = position.entrance
-        
         return None
         # return random_or_none(self.place.bees)
 
