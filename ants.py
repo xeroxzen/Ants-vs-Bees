@@ -1,7 +1,7 @@
 """The ants module implements game logic for Ants Vs. SomeBees."""
 
-# Name: Andile Mbele
-# Email: andilembele020@gmail.com
+# Name: Andile Mbele & Ntobeko Bhebhe 
+# Email: andilembele020@gmail.com & ntobekobhebhe@gmail.com
 
 import random
 import sys
@@ -67,7 +67,9 @@ class Place:
 
 class Insect:
     """An Insect, the base class of Ant and Bee, has armor and a Place."""
+    
     watersafe = False
+    
     def __init__(self, armor, place=None):
         """Create an Insect with an armor amount and a starting Place."""
         self.armor = armor
@@ -458,15 +460,19 @@ class FireAnt(Ant):
 
     name = 'Fire'
     damage = 3
-    food = 4
+    food_cost = 4
     armor = 1
-    implemented = False
+    implemented = True
 
     def reduce_armor(self, amount):
-        if FireAnt.armor <= 0:
-            insect.reduce_armor(bees , damage)
-
-
+        current_armor = self.armor - amount
+        if current_armor <= 0:
+            bee_place = self.place.bees[:]
+            for bee in bee_place:
+                bee.reduce_armor(self.damage)
+        Insect.reduce_armor(self, amount)        
+            
+            
 class LongThrower(ThrowerAnt):
     """A ThrowerAnt that only throws leaves at Bees at least 4 places away."""
 
