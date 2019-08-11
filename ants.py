@@ -498,7 +498,7 @@ class ShortThrower(ThrowerAnt):
 
     name = 'Short'
     food_cost = 3
-    max_range = 3
+    max_range = 2
     implemented = True
 
 
