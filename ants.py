@@ -1,7 +1,11 @@
 """The ants module implements game logic for Ants Vs. SomeBees."""
 
-# Name: Andile Mbele & Ntobeko Bhebhe 
-# Email: andilembele020@gmail.com & ntobekobhebhe@gmail.com
+"""
+
+Name: Andile Jaden Mbele & Ntobeko Bhebhe 
+Email: andilembele020@gmail.com & ntobekobhebhe@gmail.com
+
+"""
 
 import random
 import sys
@@ -111,6 +115,7 @@ class Bee(Insect):
 
     name = 'Bee'
     watersafe = True
+    blocks_path = False
 
     def sting(self, ant):
         """Attack an Ant, reducing the Ant's armor by 1."""
@@ -124,8 +129,10 @@ class Bee(Insect):
     def blocked(self):
         """Return True if this Bee cannot advance to the next Place."""
         # Phase 2: Special handling for NinjaAnt
-        "*** YOUR CODE HERE ***"
+        if self.place.ant == 0:
+            return self.place.reduce_armor(1)
         return self.place.ant is not None
+
 
     def action(self, colony):
         """A Bee's action stings the Ant that blocks its exit if it is blocked,
@@ -520,9 +527,14 @@ class NinjaAnt(Ant):
     name = 'Ninja'
     block_path = False
     implemented = False
+    armor = 1
+    food_cost = 6
 
     def action(self, colony):
-        "*** YOUR CODE HERE ***"
+        # current_place = self.place.colony
+        # if self.place == current_place:
+        #         self.reduce_armor(self.damage)
+        """***Code Goes Here***""" 
 
 
 class ScubaThrower(ThrowerAnt):
@@ -539,18 +551,24 @@ class HungryAnt(Ant):
     While eating, the HungryAnt can't eat another Bee.
     """
     name = 'Hungry'
-    "*** YOUR CODE HERE ***"
+    food_cost = 4
+    time_to_digest = 3
     implemented = False
 
     def __init__(self):
         Ant.__init__(self)
-        "*** YOUR CODE HERE ***"
+        self.digesting = 0
 
     def eat_bee(self, bee):
-        "*** YOUR CODE HERE ***"
+        if bee != None:
+            bee.reduce_armor(bee.armor)
+            self.digesting = self.time_to_digest
 
     def action(self, colony):
-        "*** YOUR CODE HERE ***"
+        if self.digesting != 0:
+            self.digesting -= 1
+        else:
+            self.eat_bee(random_or_none(self.place.bees))
 
 
 class BodyguardAnt(Ant):
