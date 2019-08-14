@@ -129,14 +129,9 @@ class Bee(Insect):
     def blocked(self):
         """Return True if this Bee cannot advance to the next Place."""
         # Phase 2: Special handling for NinjaAnt
-        if self.place.ant is None:
+        if not self.place.ant or self.place.ant.blocks_path == False:
             return False
-        if self.place.ant.blocks_path is False:
-            return False
-        else:
-            return True
-
-        # return self.place.ant is not None
+        return self.place.ant is not None
 
 
     def action(self, colony):
@@ -531,16 +526,15 @@ class NinjaAnt(Ant):
 
     name = 'Ninja'
     blocks_path = False
-    implemented = False
+    implemented = True
     food_cost = 6
     damage = 1
 
     def action(self, colony):
-        if colony >= 0:
-            bee_place = self.place.bees
-            for bee in bee_place:
-                bee.reduce_armor(self.damage)
-        Bee.reduce_armor(self, colony)
+        bee_place = self.place.bees[:]
+        for bee in bee_place:
+            Insect.reduce_armor(bee, self.damage)
+        
 
 
 class ScubaThrower(ThrowerAnt):
