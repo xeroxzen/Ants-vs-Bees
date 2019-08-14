@@ -152,6 +152,7 @@ class Ant(Insect):
 
     blocks_path = True
     implemented = False  # Only implemented Ant classes should be instantiated
+    container = False
     damage = 0
     food_cost = 0
     
@@ -162,6 +163,11 @@ class Ant(Insect):
 
     def is_ant(self):
         return True
+
+    def can_contain(self, other):
+        if self.is_ant == True and self.container ==  False:
+            return True
+        return False
 
 
 class HarvesterAnt(Ant):
@@ -574,11 +580,13 @@ class HungryAnt(Ant):
 class BodyguardAnt(Ant):
     """BodyguardAnt provides protection to other Ants."""
     name = 'Bodyguard'
-    "*** YOUR CODE HERE ***"
-    implemented = False
+    armor = 2
+    food_cost = 4
+    implemented = True
+    container = True
 
     def __init__(self):
-        Ant.__init__(self, 2)
+        Ant.__init__(self, self.armor)
         self.ant = None  # The Ant hidden in this bodyguard
 
     def contain_ant(self, ant):
